@@ -51,3 +51,97 @@ Pseudocode
 		Validation accuracy
 	Test Accuracy 
 	Confusion Matrix
+
+	'''
+import os
+import sys
+import re
+import time
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+from collections import defaultdict
+from pathlib import Path
+
+import nltk as nl
+from nltk.tokenize import word_tokenize
+from nltk.tokenize.casual import TweetTokenizer
+from nltk.stem.snowball import SnowballStemmer
+
+import torch
+import torch.optim as optim
+from torch.autograd import Variable
+from sklearn import preprocessing
+
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import StratifiedKFold
+from sklearn.pipeline import Pipeline
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+
+
+
+def main():
+
+    traindata= pd.read_csv("/Users/gkbytes/NER/conll2003/train.txt", sep= '\t')
+    validata= pd.read_csv("/Users/gkbytes/NER/conll2003/valid.txt", sep= '\t')
+    testdata= pd.read_csv("/Users/gkbytes/NER/conll2003/test.txt", sep= '\t')
+
+    print(traindata.head(10))
+    print(traindata.columns)
+    # text, POS tag, NE tag, I or O
+
+
+
+
+
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
