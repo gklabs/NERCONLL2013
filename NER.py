@@ -99,7 +99,6 @@ def preprocess(df):
     def tolower(text):
         lowerlist=[]
         for word in text:
-            print(word)
             pattern = re.compile('[A-Z][a-z]+')
             if re.match(pattern,word):
                 cleantext1 = re.sub(pattern, word.lower(), word)
@@ -111,7 +110,7 @@ def preprocess(df):
         sentlist = []
         sentence = []
         for word in words:
-            if(word == '.'):
+            if(word == '-DOCSTART-'):
                 sentlist.append(sentence)
                 sentence = []
                 continue
@@ -131,20 +130,20 @@ def preprocess(df):
     newpostag = []
     newchunktag = []
     newnertag = []
-    for i in range(0, NoOfSents):
-        if(df['word'][index] != '.'):            
-            newwords.append(df['word'][index])
-            newpostag.append(df['pos'][index])
-            newchunktag.append(df['chunk'][index])
-            newnertag.append(df['ner'][index])
-            index += 1
+    for index in range(0, len(df)):
+        if(df.iloc[index]['word'] != '-DOCSTART-'):            
+            newwords.append(df.iloc[index]['word'])
+            newpostag.append(df.iloc[index]['pos'])
+            newchunktag.append(df.iloc[index]['chunk'])
+            newnertag.append(df.iloc[index]['ner'])
+            #index += 1
             start += 1
         else:
             for i in range(start, maxsentlen):
                 newwords.append(0)
                 newpostag.append(0)
                 newchunktag.append(0)
-                newnertag.append('<pos>')            
+                newnertag.append('<pad>')            
             start = 0
     
     newdf = pd.DataFrame(list(zip(newwords, newpostag, newchunktag, newnertag)),  columns =['word', 'pos', 'chunk', 'ner']) 
